@@ -1,4 +1,3 @@
-# Responsive-Image-Slider
-Responsive Image Slider | LoryJS | HTML, CSS &amp; JavaScript
+# De l'Heure
 
-[Youtube video](https://www.youtube.com/watch?v=GFcnxlNnC8w)
+Les Images et videos hilarantes du moment
