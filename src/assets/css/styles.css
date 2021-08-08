@@ -1,0 +1,29 @@
+.categories {
+    color: white;
+    border-color: white;
+}
+
+.vote-up {
+    transform: rotate(270deg);
+}
+.vote-down {
+    transform: rotate(90deg);
+}
+
+.large-dropdown {
+    width: 50em; 
+}
+
+.billboard-navbar h6 {
+    font-size: 12px;
+}
+.billboard-navbar p {
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    padding-left: 10px;
+}
+
+.navbar-brand h1 {
+        margin: 0;
+}
