@@ -54,7 +54,7 @@ class MainNavbar extends React.Component {
           >
             <Container>
               <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
-                <h1 className="display-4 text-white">Billboard</h1>
+                <h1 className="display-4 text-white">de L'Heure</h1>
               </NavbarBrand>
               <button className="navbar-toggler" id="navbar_global">
                 <span className="navbar-toggler-icon" />
