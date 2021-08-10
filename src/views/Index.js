@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 
 // reactstrap components
 import { Button, Card, CardImg, Container, Row, Col } from "reactstrap";
@@ -6,56 +7,70 @@ import { Button, Card, CardImg, Container, Row, Col } from "reactstrap";
 // core components
 import Footer from "components/Footers/Footer";
 import MainNavbar from "components/Navbars/MainNavbar";
-import data from "./data.json";
 
+const BACKEND_API = 'http://127.0.0.1:5000/dlheure/api/';
 class Billboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      postList : []
+      postList: [],
     };
   }
 
   componentDidMount() {
-    const postList = data;
-    this.setState({
-      postList: postList
-    })
+    axios
+      .get(BACKEND_API + "music")
+      .then((res) => {
+        // fetching data
+        localStorage.setItem("musics", JSON.stringify(res.data));
+        this.setState({
+          postList: res.data,
+        });
+      })
+      .catch((error) => {
+        // Error
+        console.log(error);
+      });
   }
 
- 
+  _vote(id, vote) {
+    axios
+      .put(BACKEND_API + "vote", {
+        postId: id,
+        vote: vote, // true for upvote, false for downvote
+      })
+      .then((res) => {
+        // after successful update in db, function updates values locally
+        const { postList } = this.state;
+        let tempData = postList;
+        // iterate over each element in the array
+        for (var i = 0; i < tempData.length; i++) {
+          // look for the entry with a matching `code` value
+          if (tempData[i]._id === id) {
+            let tempVal = tempData[i];
+            if (vote) {
+              tempVal.upvotes++;
+            }else {
+              tempVal.downvotes++; 
+            }
+            tempData[i] = tempVal;
+          } 
+        }
+        this.setState({
+          postList: tempData,
+        });
+      })
+      .catch((error) => {
+        // Error
+        console.log(error);
+      });
+  }
   _upvote(id) {
-    const { postList } = this.state;
-    let tempData = postList; 
-    // iterate over each element in the array
-    for (var i = 0; i < tempData.length; i++) {
-      // look for the entry with a matching `code` value
-      if (tempData[i].id === id) {
-        let tempVal = tempData[i];
-        tempVal.upvotes++;
-        tempData[i] = tempVal; 
-      }
-    }
-    this.setState({
-      postList: tempData
-    })
+    this._vote(id, true);
   }
 
   _downvote(id) {
-    const { postList } = this.state;
-    let tempData = postList;
-    // iterate over each element in the array
-    for (var i = 0; i < tempData.length; i++) {
-      // look for the entry with a matching `code` value
-      if (tempData[i].id === id) {
-        let tempVal = tempData[i];
-        tempVal.downvotes++;
-        tempData[i] = tempVal;
-      }
-    }
-    this.setState({
-      postList: tempData,
-    });
+    this._vote(id, false); 
   }
 
   render() {
@@ -112,7 +127,7 @@ class Billboard extends React.Component {
             {/* Top Section  */}
             <Row className="justify-content-center text-center mb-5">
               <Col lg="8">
-                <h1 className="display-1 text-white">THE HOT 100</h1>
+                <h1 className="display-1 top-title text-white">THE HOT 100</h1>
               </Col>
             </Row>
             <Container>
@@ -185,56 +200,66 @@ class Billboard extends React.Component {
           </section>
           <section className="section section-lg pt-5">
             <Container>
-              {postList
-                .sort(
-                  (a, b) =>
-                    Math.abs(b.upvotes - b.downvotes) -
-                    Math.abs(a.upvotes - a.downvotes)
-                )
-                .map((item, i) => {
-                  return (
-                    <Card key={i} className="border-top">
-                      <Row className="align-items-center">
-                        <Col lg="2">
-                          <h1 className="title text-center">{i + 1}</h1>
-                        </Col>
-                        <Col lg="8">
-                          <Row className="align-items-center">
-                            <Col lg="8">
-                              <h5 className="title text-warning">
-                                {item.title}
-                              </h5>
-                              <p>{item.artist}</p>
-                            </Col>
-                            <Col lg="1">{item.upvotes}</Col>
-                            <Col lg="1">{item.downvotes}</Col>
-                            <Col lg="1">
-                              <i
-                                onClick={() => this._upvote(item.id)}
-                                className="fa fa-play vote-up"
-                                aria-hidden="true"
-                              ></i>
-                            </Col>
-                            <Col lg="1">
-                              <i
-                                onClick={() => this._downvote(item.id)}
-                                className="fa fa-play vote-down"
-                                aria-hidden="true"
-                              ></i>
-                            </Col>
-                          </Row>
-                        </Col>
-                        <Col lg="2">
-                          <CardImg
-                            alt="..."
-                            src={require("assets/img/theme/img-1-1200x1000.jpg")}
-                            top
-                          />
-                        </Col>
-                      </Row>
-                    </Card>
-                  );
-                })}
+              <Row className="justify-content-end mb-3 mr-2">
+                <Col lg="1">
+                  <small>upvotes</small>
+                </Col>
+                <Col lg="1">
+                  <small>downvotes</small>
+                </Col>
+                <Col lg="3"></Col>
+              </Row>
+              <div className="big-shadow">
+                {postList
+                  .sort(
+                    (a, b) =>
+                      b.upvotes - b.downvotes - (a.upvotes - a.downvotes)
+                  )
+                  .map((item, i) => {
+                    return (
+                      <Card key={i} className="border-top ">
+                        <Row className="align-items-center">
+                          <Col lg="2">
+                            <h1 className="title text-center">{i + 1}</h1>
+                          </Col>
+                          <Col lg="8">
+                            <Row className="align-items-center">
+                              <Col lg="8">
+                                <h5 className="title text-warning">
+                                  {item.title}
+                                </h5>
+                                <p>{item.artist}</p>
+                              </Col>
+                              <Col lg="1">{item.upvotes}</Col>
+                              <Col lg="1">{item.downvotes}</Col>
+                              <Col lg="1">
+                                <i
+                                  onClick={() => this._upvote(item._id)}
+                                  className="fa fa-play vote-up"
+                                  aria-hidden="true"
+                                ></i>
+                              </Col>
+                              <Col lg="1">
+                                <i
+                                  onClick={() => this._downvote(item._id)}
+                                  className="fa fa-play vote-down"
+                                  aria-hidden="true"
+                                ></i>
+                              </Col>
+                            </Row>
+                          </Col>
+                          <Col lg="2">
+                            <CardImg
+                              alt="..."
+                              src={require("assets/img/theme/img-1-1200x1000.jpg")}
+                              top
+                            />
+                          </Col>
+                        </Row>
+                      </Card>
+                    );
+                  })}
+              </div>
             </Container>
           </section>
         </main>

@@ -54,7 +54,7 @@ class MainNavbar extends React.Component {
           >
             <Container>
               <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
-                <h1 className="display-4 text-white">de L'Heure</h1>
+                <h1 className="display-4 text-white logo-brand">de L'Heure</h1>
               </NavbarBrand>
               <button className="navbar-toggler" id="navbar_global">
                 <span className="navbar-toggler-icon" />
@@ -88,7 +88,7 @@ class MainNavbar extends React.Component {
                   <UncontrolledDropdown nav>
                     <DropdownToggle nav>
                       <i className="ni ni-ui-04 d-lg-none mr-1" />
-                      <span className="nav-link-inner--text">Charts</span>
+                      <span className="nav-link-inner--text">CHARTS</span>
                     </DropdownToggle>
                     <DropdownMenu className="dropdown-menu-xl large-dropdown">
                       <div className="dropdown-menu-inner">
@@ -134,7 +134,7 @@ class MainNavbar extends React.Component {
                   <UncontrolledDropdown nav>
                     <DropdownToggle nav>
                       <i className="ni ni-collection d-lg-none mr-1" />
-                      <span className="nav-link-inner--text">News</span>
+                      <span className="nav-link-inner--text">NEWS</span>
                     </DropdownToggle>
                     <DropdownMenu className="dropdown-menu-xl">
                       <div className="dropdown-menu-inner">
@@ -163,7 +163,7 @@ class MainNavbar extends React.Component {
                   </UncontrolledDropdown>
                   <NavItem>
                     <NavLink to="/billboard" tag={Link}>
-                      About Us
+                      ABOUT US
                     </NavLink>
                   </NavItem>
                 </Nav>
