@@ -1,5 +1,5 @@
 import React from "react";
-import axios from 'axios';
+import axios from "axios";
 
 // reactstrap components
 import { Button, Card, CardImg, Container, Row, Col } from "reactstrap";
@@ -8,12 +8,13 @@ import { Button, Card, CardImg, Container, Row, Col } from "reactstrap";
 import Footer from "components/Footers/Footer";
 import MainNavbar from "components/Navbars/MainNavbar";
 
-const BACKEND_API = 'http://127.0.0.1:5000/dlheure/api/';
+const BACKEND_API = "http://127.0.0.1:5000/dlheure/api/";
 class Billboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       postList: [],
+      voted: [],
     };
   }
 
@@ -33,6 +34,14 @@ class Billboard extends React.Component {
       });
   }
 
+  /*
+    name: _vote(id, vote)
+    params; id, vote 
+    id: id of the music to vote on 
+    vote: true for upvote 
+    false for downvote
+    descr: queries api to update upvotes or downvotes, updates state, adds id to a list of already voted items. You can vote on a music only once
+  */
   _vote(id, vote) {
     axios
       .put(BACKEND_API + "vote", {
@@ -47,17 +56,19 @@ class Billboard extends React.Component {
         for (var i = 0; i < tempData.length; i++) {
           // look for the entry with a matching `code` value
           if (tempData[i]._id === id) {
+            console.log("got here");
             let tempVal = tempData[i];
             if (vote) {
               tempVal.upvotes++;
-            }else {
-              tempVal.downvotes++; 
+            } else {
+              tempVal.downvotes++;
             }
             tempData[i] = tempVal;
-          } 
+          }
         }
         this.setState({
           postList: tempData,
+          voted: this.state.voted.concat(id),
         });
       })
       .catch((error) => {
@@ -65,14 +76,23 @@ class Billboard extends React.Component {
         console.log(error);
       });
   }
+  // extracts video id from link
+  _getThumbnail(link) {
+    var video_id = link.split("v=")[1];
+    var ampersandPosition = video_id.indexOf("&");
+    if (ampersandPosition !== -1) {
+      video_id = video_id.substring(0, ampersandPosition);
+    }
+    return video_id;
+  }
   _upvote(id) {
     this._vote(id, true);
   }
 
   _downvote(id) {
-    this._vote(id, false); 
+    this._vote(id, false);
   }
-
+  _doNothing() {}
   render() {
     const { postList } = this.state;
     return (
@@ -234,14 +254,22 @@ class Billboard extends React.Component {
                               <Col lg="1">{item.downvotes}</Col>
                               <Col lg="1">
                                 <i
-                                  onClick={() => this._upvote(item._id)}
+                                  onClick={
+                                    this.state.voted.indexOf(item._id) > -1
+                                      ? this._doNothing()
+                                      : () => this._upvote(item._id)
+                                  }
                                   className="fa fa-play vote-up"
                                   aria-hidden="true"
                                 ></i>
                               </Col>
                               <Col lg="1">
                                 <i
-                                  onClick={() => this._downvote(item._id)}
+                                  onClick={
+                                    this.state.voted.indexOf(item._id) > -1
+                                      ? this._doNothing()
+                                      : () => this._downvote(item._id)
+                                  }
                                   className="fa fa-play vote-down"
                                   aria-hidden="true"
                                 ></i>
@@ -251,7 +279,11 @@ class Billboard extends React.Component {
                           <Col lg="2">
                             <CardImg
                               alt="..."
-                              src={require("assets/img/theme/img-1-1200x1000.jpg")}
+                              src={
+                                "https://img.youtube.com/vi/" +
+                                this._getThumbnail(item.link) +
+                                "/2.jpg"
+                              }
                               top
                             />
                           </Col>

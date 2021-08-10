@@ -10,6 +10,7 @@ const Post = new Schema(
     artist: String,
     upvotes: Number,
     downvotes: Number,
+    link: String,
   },
   { timestamps: true }
 );
