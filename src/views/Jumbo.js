@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import { Button, Card, CardImg, Container, Row, Col } from "reactstrap";
@@ -53,6 +54,8 @@ class Jumbo extends React.Component {
               type="button"
               lg="2"
               size="sm"
+              to="/producers"
+              tag={Link}
             >
               Producers 100
             </Button>

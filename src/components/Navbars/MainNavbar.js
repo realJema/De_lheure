@@ -87,82 +87,102 @@ class MainNavbar extends React.Component {
                 <Nav className="navbar-nav-hover align-items-lg-center" navbar>
                   <UncontrolledDropdown nav>
                     <DropdownToggle nav>
-                      <i className="ni ni-ui-04 d-lg-none mr-1" />
+                      <i className="ni ni-collection d-lg-none mr-1" />
                       <span className="nav-link-inner--text">CHARTS</span>
                     </DropdownToggle>
-                    <DropdownMenu className="dropdown-menu-xl large-dropdown">
-                      <div className="dropdown-menu-inner">
-                        <Container>
-                          <Row className="billboard-navbar">
-                            <Col lg="3">
-                              <h6>Music</h6>
-                              <p>Hot Music 100</p>
-                              <p>Hot Music 200</p>
-                              <p>
-                                <NavLink to="/producers" tag={Link}>
-                                  Hot Music Producers
-                                </NavLink>
-                              </p>
-                              <p>Hot Artists</p>
-                              <p>Upcoming Artists</p>
-                            </Col>
-                            <Col lg="3">
-                              <h6>Video</h6>
-                              <p>Hot Video 100</p>
-                              <p>Hot Video Producers</p>
-                              <p>Honorable Mentions</p>
-                              <p>Amateurs</p>
-                              <p>International</p>
-                            </Col>
-                            <Col lg="3">
-                              <h6>Year</h6>
-                              <p>2021</p>
-                              <p>2020</p>
-                              <p>2019</p>
-                              <p>2018</p>
-                              <p>2017</p>
-                            </Col>
-                            <Col lg="3">
-                              <h6>Genres</h6>
-                              <p>Mbole</p>
-                              <p>Hip-Hop/R&B</p>
-                              <p>Dance</p>
-                              <p>Gospel</p>
-                              <p>Pop</p>
-                            </Col>
-                          </Row>
-                        </Container>
-                      </div>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                  <UncontrolledDropdown nav>
-                    <DropdownToggle nav>
-                      <i className="ni ni-collection d-lg-none mr-1" />
-                      <span className="nav-link-inner--text">NEWS</span>
-                    </DropdownToggle>
-                    <DropdownMenu className="dropdown-menu-xl">
-                      <div className="dropdown-menu-inner">
-                        <Container>
-                          <Row className="billboard-navbar">
-                            <Col lg="6">
-                              <h6>Year</h6>
-                              <p>2021</p>
-                              <p>2020</p>
-                              <p>2019</p>
-                              <p>2018</p>
-                              <p>2017</p>
-                            </Col>
-                            <Col lg="6">
-                              <h6>Genres</h6>
-                              <p>Mbole</p>
-                              <p>Hip-Hop/R&B</p>
-                              <p>Dance</p>
-                              <p>Gospel</p>
-                              <p>Pop</p>
-                            </Col>
-                          </Row>
-                        </Container>
-                      </div>
+                    <DropdownMenu className="large-dropdown">
+                      <Nav>
+                        <NavItem>Music</NavItem>
+                        <NavItem>
+                          <NavLink to="/" tag={Link}>
+                            Hot Music 100
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink to="/" tag={Link}>
+                            Hot Music 200
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink to="/producers" tag={Link}>
+                            Hot Music Producers
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink to="/billboard" tag={Link}>
+                            Upcoming Artists
+                          </NavLink>
+                        </NavItem>
+                      </Nav>
+                      <Nav>
+                        <NavItem>Videos</NavItem>
+                        <NavItem>
+                          <NavLink to="/" tag={Link}>
+                            Hot Video 100
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink to="/billboard" tag={Link}>
+                            Hot Video Producers
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink to="/billboard" tag={Link}>
+                            Honorable Mentions
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink to="/billboard" tag={Link}>
+                            International
+                          </NavLink>
+                        </NavItem>
+                      </Nav>
+                      <Nav>
+                        <NavItem>Genre</NavItem>
+                        <NavItem>
+                          <NavLink to="/billboard" tag={Link}>
+                            Afrobeat
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink to="/billboard" tag={Link}>
+                            Hip Hop
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink to="/billboard" tag={Link}>
+                            Gospel 
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink to="/billboard" tag={Link}>
+                            Pop
+                          </NavLink>
+                        </NavItem>
+                      </Nav>
+                      <Nav>
+                        <NavItem>Year</NavItem>
+                        <NavItem>
+                          <NavLink to="/billboard" tag={Link}>
+                            2021
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink to="/billboard" tag={Link}>
+                            2020
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink to="/billboard" tag={Link}>
+                            2019
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink to="/billboard" tag={Link}>
+                            2018
+                          </NavLink>
+                        </NavItem>
+                      </Nav>
                     </DropdownMenu>
                   </UncontrolledDropdown>
                   <NavItem>

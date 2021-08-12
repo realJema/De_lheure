@@ -30,10 +30,11 @@ class Page extends React.Component {
   componentDidMount() {
     let { page } = this.props.match.params;
     axios
-      .get(BACKEND_API + "music") // change this to page state 
+      .get(BACKEND_API + page) // change this to page state 
       .then((res) => {
         // fetching data
         localStorage.setItem(this.state.page, JSON.stringify(res.data));
+        console.log(res.data);
         this.setState({
           postList: res.data,
           top: this._getThumbnail(res["data"][0]["link"]),
@@ -57,7 +58,7 @@ class Page extends React.Component {
   */
   _vote(id, vote) {
     axios
-      .put(BACKEND_API + "voteproducer", {
+      .put(BACKEND_API + "vote" + this.state.page, {
         postId: id,
         vote: vote, // true for upvote, false for downvote
       })
@@ -115,11 +116,12 @@ class Page extends React.Component {
   _doNothing() {}
   render() {
     const { postList, top, others, page } = this.state;
+    console.log(page);
     return (
       <>
         <MainNavbar />
         <main ref="main">
-          <Jumbo top={top} others={others} hot={this.state.page.toUpperCase()} />
+          <Jumbo top={top} others={others} hot={page.toUpperCase()} />
           <section className="section section-lg pt-5">
             <Container>
               <Row className="justify-content-end mb-3 mr-2">
@@ -148,9 +150,9 @@ class Page extends React.Component {
                             <Row className="align-items-center">
                               <Col lg="8">
                                 <h5 className="title text-warning">
-                                  {item.title}
+                                  {item.name.toUpperCase()}
                                 </h5>
-                                <p>{item.artist}</p>
+                                <p>{item.town.toUpperCase()}</p>
                               </Col>
                               <Col lg="1">{item.upvotes}</Col>
                               <Col lg="1">{item.downvotes}</Col>

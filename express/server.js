@@ -84,11 +84,43 @@ app.get("/dlheure/api/music", function (req, res) {
   });
 });
 /*
-  Route: /dlheure/api/vote
+  Route: /dlheure/api/artist
+  Type: GET
+  Description: get all artists
+*/
+app.get("/dlheure/api/artists", function (req, res) {
+  mods.Artists.find(function (err, posts) {
+    if (err) {
+      res.status(401).send("Internal Server Error");
+    } else {
+      // sending all the posts fetch from the database
+      console.log("[" + getCurrentTime() + "] - Artists List Data fetched");
+      res.status(200).send(posts);
+    }
+  });
+});
+/*
+  Route: /dlheure/api/producers
+  Type: GET
+  Description: get all producers
+*/
+app.get("/dlheure/api/producers", function (req, res) {
+  mods.Producers.find(function (err, posts) {
+    if (err) {
+      res.status(401).send("Internal Server Error");
+    } else {
+      // sending all the posts fetch from the database
+      console.log("[" + getCurrentTime() + "] - Producers List Data fetched");
+      res.status(200).send(posts);
+    }
+  });
+});
+/*
+  Route: /dlheure/api/votemusic
   Type: POST
   Description: vote for music
 */
-app.put("/dlheure/api/vote", function (req, res) {
+app.put("/dlheure/api/votemusic", function (req, res) {
   const { postId, vote } = req.body;
   // vote is true for upvote and false for down votes 
   if (vote) {
@@ -102,7 +134,7 @@ app.put("/dlheure/api/vote", function (req, res) {
           res.status(401).send("Internal Server Error");
         } else {
           // sending all the posts fetch from the database
-          console.log("[" + getCurrentTime() + "] - Successful Update");
+          console.log("[" + getCurrentTime() + "] - Music Upvote");
           res.status(200).send(posts);
         }
       }
@@ -118,7 +150,91 @@ app.put("/dlheure/api/vote", function (req, res) {
           res.status(401).send("Internal Server Error");
         } else {
           // sending all the posts fetch from the database
-          console.log("[" + getCurrentTime() + "] - Successful Update");
+          console.log("[" + getCurrentTime() + "] - Music Downvote");
+          res.status(200).send(posts);
+        }
+      }
+    );
+  }
+});
+/*
+  Route: /dlheure/api/voteartist
+  Type: POST
+  Description: vote for music
+*/
+app.put("/dlheure/api/voteartist", function (req, res) {
+  const { postId, vote } = req.body;
+  // vote is true for upvote and false for down votes 
+  if (vote) {
+    mods.Artists.updateOne(
+      { _id: postId },
+      {
+        $inc: { upvotes: 1 }
+      },
+      function (err, posts) {
+        if (err) {
+          res.status(401).send("Internal Server Error");
+        } else {
+          // sending all the posts fetch from the database
+          console.log("[" + getCurrentTime() + "] - Artist Upvote");
+          res.status(200).send(posts);
+        }
+      }
+    );
+  } else {
+    mods.Artists.updateOne(
+      { _id: postId },
+      {
+        $inc: { downvotes: 1 },
+      },
+      function (err, posts) {
+        if (err) {
+          res.status(401).send("Internal Server Error");
+        } else {
+          // sending all the posts fetch from the database
+          console.log("[" + getCurrentTime() + "] - Artist Downvote");
+          res.status(200).send(posts);
+        }
+      }
+    );
+  }
+});
+/*
+  Route: /dlheure/api/voteproducers
+  Type: POST
+  Description: vote for music
+*/
+app.put("/dlheure/api/voteproducers", function (req, res) {
+  const { postId, vote } = req.body;
+  // vote is true for upvote and false for down votes 
+  if (vote) {
+    mods.Producers.updateOne(
+      { _id: postId },
+      {
+        $inc: { upvotes: 1 }
+      },
+      function (err, posts) {
+        if (err) {
+          res.status(401).send("Internal Server Error");
+        } else {
+          // sending all the posts fetch from the database
+          console.log("[" + getCurrentTime() + "] - Producer Upvote");
+          res.status(200).send(posts);
+        }
+      }
+    );
+  } else {
+    mods.Producers.updateOne(
+      { _id: postId },
+      {
+        $inc: { downvotes: 1 },
+      },
+      function (err, posts) {
+        if (err) {
+          res.status(401).send("Internal Server Error");
+        } else {
+          // sending all the posts fetch from the database
+          console.log("[" + getCurrentTime() + "] - Producer Downvote");
           res.status(200).send(posts);
         }
       }
