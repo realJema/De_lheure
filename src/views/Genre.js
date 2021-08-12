@@ -11,7 +11,7 @@ import Jumbo from "./Jumbo";
 
 const BACKEND_API = "http://127.0.0.1:5000/dlheure/api/";
 
-class Billboard extends React.Component {
+class Genre extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -112,7 +112,7 @@ class Billboard extends React.Component {
       <>
         <MainNavbar />
         <main ref="main">
-          <Jumbo top={topVideo} others={topVideos} hot="100" />
+          <Jumbo topVideo={topVideo} topVideos={topVideos} hot="100" />
           <section className="section section-lg pt-5">
             <Container>
               <Row className="justify-content-end mb-3 mr-2">
@@ -196,4 +196,4 @@ class Billboard extends React.Component {
   }
 }
 
-export default Billboard;
+export default Genre;

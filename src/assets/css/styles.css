@@ -39,3 +39,13 @@
 -moz-box-shadow: -119px 2px 0px -59px rgba(246,247,251,1);
 box-shadow: -119px 2px 0px -59px rgba(246,247,251,1);
 }
+
+.topVideo-player { 
+    width: 100% !important;
+    height: 35em !important;
+}
+
+.topVideos {
+    height: 10em;
+    object-fit: cover;
+}

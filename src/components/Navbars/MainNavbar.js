@@ -17,7 +17,7 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledTooltip
+  UncontrolledTooltip,
 } from "reactstrap";
 
 class MainNavbar extends React.Component {
@@ -28,18 +28,18 @@ class MainNavbar extends React.Component {
   }
   state = {
     collapseClasses: "",
-    collapseOpen: false
+    collapseOpen: false,
   };
 
   onExiting = () => {
     this.setState({
-      collapseClasses: "collapsing-out"
+      collapseClasses: "collapsing-out",
     });
   };
 
   onExited = () => {
     this.setState({
-      collapseClasses: ""
+      collapseClasses: "",
     });
   };
 
@@ -98,7 +98,11 @@ class MainNavbar extends React.Component {
                               <h6>Music</h6>
                               <p>Hot Music 100</p>
                               <p>Hot Music 200</p>
-                              <p>Hot Music Producers</p>
+                              <p>
+                                <NavLink to="/producers" tag={Link}>
+                                  Hot Music Producers
+                                </NavLink>
+                              </p>
                               <p>Hot Artists</p>
                               <p>Upcoming Artists</p>
                             </Col>

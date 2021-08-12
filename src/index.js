@@ -9,21 +9,18 @@ import "assets/scss/argon-design-system-react.scss?v1.1.0";
 import "assets/css/styles.css";
 
 import Index from "views/Index.js";
-// import Landing from "views/examples/Landing.js";
-// import Login from "views/examples/Login.js";
-// import Profile from "views/examples/Profile.js";
-// import Register from "views/examples/Register.js";
-// import Billboard from "views/examples/Billboard.js";
+import Page from "views/Page.js";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/" exact render={props => <Index {...props} />} />
-      {/* <Route
-        path="/landing-page"
+      <Route path="/" exact render={(props) => <Index {...props} />} />
+      <Route
+        path="/:page"
         exact
-        render={props => <Landing {...props} />}
+        render={(props) => <Page {...props} />}
       />
+      {/*
       <Route
         path="/billboard"
         exact

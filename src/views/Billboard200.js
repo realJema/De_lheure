@@ -11,7 +11,7 @@ import Jumbo from "./Jumbo";
 
 const BACKEND_API = "http://127.0.0.1:5000/dlheure/api/";
 
-class Billboard extends React.Component {
+class Billboard200 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +29,7 @@ class Billboard extends React.Component {
         // fetching data
         localStorage.setItem("musics", JSON.stringify(res.data));
         this.setState({
-          postList: res.data.slice(0, 100),  // top 100 videos
+          postList: res.data.slice(0, 200),  // top 200 videos
           topVideo: this._getThumbnail(res["data"][0]["link"]),
           topVideos: res.data.slice(1, 7),  // returns the 2nd to the 7th video from the list and skips the top video
         });
@@ -112,7 +112,7 @@ class Billboard extends React.Component {
       <>
         <MainNavbar />
         <main ref="main">
-          <Jumbo top={topVideo} others={topVideos} hot="100" />
+          <Jumbo topVideo={topVideo} topVideos={topVideos} hot="200"/>
           <section className="section section-lg pt-5">
             <Container>
               <Row className="justify-content-end mb-3 mr-2">
@@ -196,4 +196,4 @@ class Billboard extends React.Component {
   }
 }
 
-export default Billboard;
+export default Billboard200;
