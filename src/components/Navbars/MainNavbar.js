@@ -99,7 +99,7 @@ class MainNavbar extends React.Component {
                           </NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink to="/" tag={Link}>
+                          <NavLink to="/music" tag={Link}>
                             Hot Music 200
                           </NavLink>
                         </NavItem>

@@ -1,11 +1,11 @@
 {
-  "name": "argon-design-system-react",
+  "name": "self-made",
   "version": "1.1.0",
-  "description": "React version of Argon Design System by Creative Tim",
+  "description": "Self Made, Nobody else will do it for you",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/creativetimofficial/argon-design-system-react.git"
+    "url": "https://github.com/realJema/De_lheure.git"
   },
   "keywords": [
     "react",
@@ -22,12 +22,12 @@
     "argon-design-system-react",
     "design-system-react"
   ],
-  "author": "Creative Tim",
+  "author": "realjema",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/creativetimofficial/argon-design-system-react/issues"
+    "url": "https://github.com/realJema/De_lheure.git/issues"
   },
-  "homepage": "https://demos.creative-tim.com/argon-design-system-react/",
+  "homepage": "https://github.com/realJema/De_lheure.git",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && gulp licenses",

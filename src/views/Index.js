@@ -23,15 +23,20 @@ class Billboard extends React.Component {
   }
 
   componentDidMount() {
+    // set state of voted from the local storage
+    const voted = localStorage.getItem("dlheure.com:voted_data");
+    if (voted) {
+      this.setState({
+        voted: voted,
+      });
+    }
     axios
       .get(BACKEND_API + "music")
       .then((res) => {
-        // fetching data
-        localStorage.setItem("musics", JSON.stringify(res.data));
         this.setState({
-          postList: res.data.slice(0, 100),  // top 100 videos
+          postList: res.data.slice(0, 100), // top 100 videos
           topVideo: this._getThumbnail(res["data"][0]["link"]),
-          topVideos: res.data.slice(1, 7),  // returns the 2nd to the 7th video from the list and skips the top video
+          topVideos: res.data.slice(1, 7), // returns the 2nd to the 7th video from the list and skips the top video
         });
       })
       .catch((error) => {
@@ -50,7 +55,7 @@ class Billboard extends React.Component {
   */
   _vote(id, vote) {
     axios
-      .put(BACKEND_API + "vote", {
+      .put(BACKEND_API + "votemusic", {
         postId: id,
         vote: vote, // true for upvote, false for downvote
       })
@@ -75,6 +80,7 @@ class Billboard extends React.Component {
           postList: tempData,
           voted: this.state.voted.concat(id),
         });
+        localStorage.setItem('dlheure.com:voted_data', this.state.voted);
       })
       .catch((error) => {
         // Error
@@ -99,6 +105,7 @@ class Billboard extends React.Component {
     });
   }
   _upvote(id) {
+    console.log('got in to upvote');
     this._vote(id, true);
   }
 
